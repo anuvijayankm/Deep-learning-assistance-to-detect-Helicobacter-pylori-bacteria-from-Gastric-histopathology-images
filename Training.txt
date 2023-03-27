@@ -1,0 +1,32 @@
+#Earlystopping and model check point
+
+from keras.callbacks import ModelCheckpoint, EarlyStopping
+
+#early stopping
+es = EarlyStopping(monitor="val_accuracy",min_delta=0.01, patience = 3, verbose = 1, mode ='auto')
+
+#model check point
+mc = ModelCheckpoint(monitor="val_accuracy",filepath="/content/drive/MyDrive/deepHP/bestmodel.h5",verbose=1, save_best_only=True, mode="auto")
+cd =[es,mc]
+
+Hs = model.fit_generator(generator=train_data, steps_per_epoch=8,epochs=30, verbose=1, validation_data=validation_data,validation_steps =16, callbacks = cd)
+
+#Model Graphical interpretetion
+
+h = Hs.history
+h.keys()
+#dict_keys(['loss','accuracy','val_loss','val_accuracy'])
+
+import matplotlib.pyplot as plt
+plt.plot(h1['accuracy'])
+plt.plot(h1['val_accuracy'],c='red')
+
+plt.title("Accuracy vs Validation Accuracy")
+plt.show()
+
+import matplotlib.pyplot as plt
+plt.plot(h1['loss'])
+plt.plot(h1['val_loss'],c='red')
+
+plt.title("Loss vs Validation Loss")
+plt.show()

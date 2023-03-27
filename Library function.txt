@@ -1,0 +1,31 @@
+# Install the PyDrive library
+!pip install PyDrive
+
+# Authenticate and create the PyDrive client
+from google.colab import auth
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
+from oauth2client.client import GoogleCredentials
+
+auth.authenticate_user()
+gauth = GoogleAuth()
+gauth.credentials = GoogleCredentials.get_application_default()
+drive = GoogleDrive(gauth)
+
+# Get the ID of the zip file from Google Drive
+file_id = '/content/drive/MyDrive/deepHP/h.pylori.zip'
+
+# Download the zip file to Google Colab
+downloaded = drive.CreateFile({'id': file_id})
+#downloaded.GetContentFile('file.zip')
+
+# Unzip the file
+!unzip file.zip
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+import math
+import shutil
+import glob

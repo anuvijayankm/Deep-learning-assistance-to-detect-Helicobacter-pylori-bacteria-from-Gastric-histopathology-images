@@ -1,0 +1,28 @@
+#Preparing our data using Data Generator
+def preprocessingImgaes(path):
+  """
+  input : path
+  output: Pre processed images
+  """
+  image_data =ImageDataGenerator(zoom_range=0.2,shear_range= 0.2, rescale= 1/255, horizontal_flip=True)
+  image = image_data.flow_from_directory(directory = path, target_size = (256,256),batch_size=50,class_mode =  'binary')
+
+  return image
+
+path = '/content/train'
+train_data = preprocessingImgaes(path)
+#validation
+def preprocessingImgaes1(path):
+  """
+  input : path
+  output: Pre processed images
+  """
+  image_data =ImageDataGenerator(rescale= 1/255)
+  image = image_data.flow_from_directory(directory = path, target_size = (256,256),batch_size=50,class_mode =  'binary')
+
+  return image
+
+path = '/content/val'
+validation_data = preprocessingImgaes1(path)
+path = '/content/test'
+test_data = preprocessingImgaes1(path)

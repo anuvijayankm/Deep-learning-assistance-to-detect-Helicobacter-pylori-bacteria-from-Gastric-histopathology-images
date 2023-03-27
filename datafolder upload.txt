@@ -1,0 +1,30 @@
+# count the number of images in respective classes 0- unaffected, 1 infected
+ROOT_DIR = '/content/h.pylori'
+number_of_images={}
+
+for dir in os.listdir(ROOT_DIR):
+  number_of_images[dir] = len(os.listdir(os.path.join(ROOT_DIR,dir)))
+
+number_of_images.items()
+
+# train folder
+def datafolder(p, split):
+  if not os.path.exists("./"+p):
+    os.mkdir("./"+p)
+    for dir in os.listdir(ROOT_DIR):
+      os.makedirs("./"+p+"/"+dir)
+      for img in np.random.choice(a=os.listdir(os.path.join(ROOT_DIR,dir)),size=(math.floor(split*number_of_images[dir])-2),replace=False):
+        o = os.path.join(ROOT_DIR,dir,img)#path
+        D = os.path.join("./"+p,dir)
+        shutil.copy(o,D)
+        os.remove(o)
+    
+  else:
+    print(f"{path}Train Folder exists")
+
+
+datafolder("train", .7)
+
+datafolder("val", .15)
+
+datafolder("test", .15)
